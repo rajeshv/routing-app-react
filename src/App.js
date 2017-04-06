@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory, Link } from 'react-router';
+import { Router, Route, hashHistory, browserHistory, Link, IndexRoute} from 'react-router';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, NavItem, Nav } from 'react-bootstrap';
 
@@ -13,7 +13,7 @@ export class NavigationApp extends Component {
       <Navbar>
         <Nav>
         {this.state.items.map((item, index) =>
-          <NavItem key={index}><Navlink name={item}/></NavItem>
+          <NavItem key={index} className="focused"><Navlink name={item}/></NavItem>
          )}
         </Nav>
       </Navbar>
@@ -24,7 +24,7 @@ export class NavigationApp extends Component {
 class Navlink extends Component {
   render() {
     return (
-      <Link to={"/" + this.props.name}>{this.props.name}</Link>
+      <Link to={"/" + this.props.name} activeStyle={{ color: 'red' }}>{this.props.name}</Link>
       );
   }
 }
@@ -63,9 +63,9 @@ class MainLayout extends Component {
 }
 
 export default (
-  <Router history={hashHistory}>
-    <Route component={MainLayout}>
-      <Route path="/" component={Home} />
+  <Router history={browserHistory}>
+    <Route path="/" component={MainLayout}>
+      <IndexRoute component={Home} />
       <Route path="/home" component={Home} />
       <Route path="/contact" component={Contact}/>
       <Route path="/about" component={About}/>
